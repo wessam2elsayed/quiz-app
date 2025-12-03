@@ -84,20 +84,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context,index){
                 return InkWell(onTap: (){
                   setState(() {
-                    selectedindex=index;
+                    selectedIndex=index;
                   });
 
                 },
                   child: Container(width: 200,height: 60,
                    decoration: BoxDecoration(color: 
-                   selectedindex == index?
+                   selectedIndex == index?
                     Colors.green:Colors.white,
                    borderRadius: BorderRadius.circular(15)),
                    child: Center(
                      child: Text(
                       "${questions[widget.index].answer.keys.toList()[index]}",
                       textAlign: TextAlign.center,
-                     style: TextStyle(color: selectedindex==index?
+                     style: TextStyle(color: selectedIndex==index?
                       Colors.white:Colors.black,
                      fontSize: 14,
                      fontWeight: FontWeight.bold),),
@@ -134,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.pop(context);
                               }, child: Text("Ok"))
                             ],
-                          )
-                         })
+                          );
+                         },);
 
                       }
                       selectedIndex= null;
