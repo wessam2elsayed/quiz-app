@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/home/page_view_screen.dart';
+import 'package:quiz_app/model/model.dart';
 
 class HomeScreen extends StatefulWidget {
-   HomeScreen({super.key, required this.index,});
-    int index;
+  const HomeScreen({super.key, required this.index, });
+    final int index;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.bold),),
             ),
             const SizedBox(height: 20,),
-            Text("Question ${widget.index+1} / ${questions.lenght}",
+            Text("Question ${widget.index+1} / ${questions.length}",
             style: TextStyle(color: Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.bold),),
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                    borderRadius: BorderRadius.circular(15)),
                    child: Center(
                      child: Text(
-                      "${questions[widget.index].answer.keys.toList()[index]}",
+                      "${questions[widget.index].answers.keys.toList()[index]}",
                       textAlign: TextAlign.center,
                      style: TextStyle(color: selectedIndex==index?
                       Colors.white:Colors.black,
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                
                   return const SizedBox(height: 20,);
                 },
-                itemCount: questions[widget.index].answer.lenght),
+                itemCount: questions[widget.index].answers.length),
              ),
                const SizedBox(height: 20,),
                ElevatedButton(
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: (){
                   
                     setState(() {
-                      questions[widget.index].answer.values.toList()[selectedIndex!]==true?
+                      questions[widget.index].answers.values.toList()[selectedIndex]==true?
                       score++:score;
                       if(widget.index< questions.length-1){
                     widget.index+1;
@@ -138,11 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
                          },);
 
                       }
-                      selectedIndex= null;
+                      selectedIndex= 0;
                       
                   });
                 }, 
-                child: Text(selectedIndex<questions.lenght-1 ?"N e x t":"S u b m i t",
+                child: Text(selectedIndex<questions.length-1 ?"N e x t":"S u b m i t",
                style: TextStyle(color: Colors.black,fontSize: 20,
                fontWeight: FontWeight.bold),))
                

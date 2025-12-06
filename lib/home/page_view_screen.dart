@@ -18,6 +18,7 @@ class _PageScreenState extends State<PageViewScreen> {
     return Scaffold(
       body: PageView.builder(
         itemCount: questions.length,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context,int index){
           return HomeScreen(index: index+1);
         
