@@ -7,13 +7,15 @@ class Model {
 }
 
  final List<Model> questions=[
-  Model(question: "Who is the owner of Flutter?",
+
+    Model(question: "Who is the owner of Flutter?",
    answers: {
     "Google":true,
     "Nokia":false,
     "Apple":false,
     "Samsung":false,
    }),
+
    Model(question: "Who is the owner of Iphone?", 
    answers: {
     "Microsoft":false,
@@ -21,6 +23,7 @@ class Model {
     "Google":false,
     "Apple":true,
    }),
+
    Model(question: "Youtube is ...... platform?", 
    answers: {
     "Music sharing":false,
@@ -28,13 +31,13 @@ class Model {
     "Live Streaming":false,
     "All of the above":true
    }),
+
    Model(question: "Which programming language is Flutter primarily based on?",
     answers: {
       "Java":false,
       "Dart":true,
       "python":false,
       "Swift":false,
-    }
-    )
-
+    },
+    ),
  ];

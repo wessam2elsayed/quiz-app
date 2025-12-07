@@ -20,7 +20,7 @@ class _PageScreenState extends State<PageViewScreen> {
         itemCount: questions.length,
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context,int index){
-          return HomeScreen(index: index+1);
+          return HomeScreen(index: index);
         
       }),
     );

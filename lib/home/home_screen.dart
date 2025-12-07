@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/home/page_view_screen.dart';
 import 'package:quiz_app/model/model.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.index, });
-    final int index;
+   HomeScreen({super.key, required this.index, });
+     int index=0;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedIndex=0;
+  int? selectedIndex;
   int score=0;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.bold),),
             ),
             const SizedBox(height: 20,),
-            Text("Question ${widget.index+1} / ${questions.length}",
-            style: TextStyle(color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold),),
+            Row(
+              children: [
+                Text("Question ${widget.index +1} / ${questions.length}",
+                style: TextStyle(color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),),
+              ],
+            ),
             const SizedBox(height: 20,),
 
             Stack(
@@ -78,15 +85,15 @@ class _HomeScreenState extends State<HomeScreen> {
                ),             
             ],),
              const SizedBox(height: 20,),
-             Flexible(
+             Expanded(
                child: ListView.separated(
-                
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context,index){
                 return InkWell(onTap: (){
                   setState(() {
                     selectedIndex=index;
                   });
-
+               
                 },
                   child: Container(width: 200,height: 60,
                    decoration: BoxDecoration(color: 
@@ -95,10 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
                    borderRadius: BorderRadius.circular(15)),
                    child: Center(
                      child: Text(
-                      "${questions[widget.index].answers.keys.toList()[index]}",
+                      questions[widget.index].answers.keys.toList()[index],
                       textAlign: TextAlign.center,
                      style: TextStyle(color: selectedIndex==index?
-                      Colors.white:Colors.black,
+                      Colors.white: Colors.black,
                      fontSize: 14,
                      fontWeight: FontWeight.bold),),
                    ),
@@ -114,15 +121,16 @@ class _HomeScreenState extends State<HomeScreen> {
                const SizedBox(height: 20,),
                ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(15)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 fixedSize: Size(MediaQuery.of(context).size.width, 50)),
                 onPressed: (){
                   
                     setState(() {
-                      questions[widget.index].answers.values.toList()[selectedIndex]==true?
+                      questions[widget.index].answers.values.toList()
+                      [selectedIndex!]==true?
                       score++:score;
-                      if(widget.index< questions.length-1){
-                    widget.index+1;
+                      if(questions.length-1 > widget.index  ){
+                    widget.index++;
                       }else{
                         showDialog(context: context,
                          builder: (context){
@@ -130,19 +138,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: Text("Quiz Completed"),
                             content: Text("Your score is $score"),
                             actions: [
-                              TextButton(onPressed: (){
-                                Navigator.pop(context);
-                              }, child: Text("Ok"))
+                              TextButton(
+                                 child: Text("Ok"),
+                                onPressed: (){
+                                Navigator.push(context,MaterialPageRoute(builder:
+                                 (context)=>PageViewScreen()));
+                                selectedIndex=0;
+                                widget.index =0;
+                                score=0;
+
+                              },),
                             ],
                           );
                          },);
 
                       }
-                      selectedIndex= 0;
+                      selectedIndex= null;
                       
                   });
                 }, 
-                child: Text(selectedIndex<questions.length-1 ?"N e x t":"S u b m i t",
+                child: Text(widget.index<questions.length-1 ?"N e x t":"S u b m i t",
                style: TextStyle(color: Colors.black,fontSize: 20,
                fontWeight: FontWeight.bold),))
                
